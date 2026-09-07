@@ -218,7 +218,7 @@
     line-height:1.9;
   }
   .project-head .meta .tag{ display:block; }
-  .project-head .repo-link{
+  .repo-link{
     display:inline-block;
     margin-top:16px;
     font-family:'IBM Plex Mono', monospace;
@@ -228,7 +228,7 @@
     border-bottom:1px solid var(--gold);
     padding-bottom:2px;
   }
-  .project-head .repo-link:hover{ color:var(--gold); }
+  .repo-link:hover{ color:var(--gold); }
 
   .result-strip{
     display:flex;
@@ -398,14 +398,68 @@
       <div class="entry">
         <div>
           <h3>Data Engineering Associate</h3>
-          <div class="org">Reviture</div>
-          <p>Used PySpark and SQL to clean and standardize healthcare patient intake data at scale, then built Power BI dashboards for a client stakeholder presentation.</p>
+          <div class="org">Revature, in partnership with Cognizant</div>
+          <p>An intensive data engineering apprenticeship (Python, SQL, PySpark, AWS/cloud concepts) building toward a team capstone: a full patient-visits data pipeline built for a simulated healthcare client, the kind of client Revature/Cognizant places engineers with. Served as Student Infrastructure Lead on a four-person team, building the AWS environment (S3, EMR, IAM) and an Airflow-orchestrated ETL DAG (EMR cluster lookup, S3 sensors, EmrAddStepsOperator, EmrStepSensor).</p>
+          <p>The full pipeline: a web patient-intake form feeds a Kafka producer, a Python consumer lands raw JSON into S3 (valid and rejected paths, with Kafka offsets committed only after a safe write), PySpark cleans and normalizes the data into a star schema (a Visits fact table against Patient, Doctor, Nurse, and Location dimensions), and Snowflake reads the resulting Iceberg tables directly via native metadata refresh rather than a heavy COPY INTO step, with Gold-layer reporting tables auto-refreshing hourly. A SQL validation suite runs automated pre- and post-load audits, null encounter IDs, negative billing amounts, orphaned foreign keys, even a regex check that unmasked SSNs never reach the Silver layer.</p>
+          <p>Power BI dashboards on top surfaced real findings from the dataset: Emergency was both the highest-revenue and highest-volume department, and a single physician accounted for the largest share of billing, exactly the kind of KPI hospital shareholders would actually ask for.</p>
+          <a class="repo-link" href="https://github.com/Vythern/Project-2" target="_blank" rel="noopener">github.com/Vythern/Project-2 &#8594;</a>
         </div>
         <div class="meta">
+          <span class="tag">AWS (S3, EMR, IAM, Glue)</span>
           <span class="tag">PySpark</span>
-          <span class="tag">SQL</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">Airflow</span>
+          <span class="tag">Snowflake / Iceberg</span>
           <span class="tag">Power BI</span>
-          <span class="tag">Healthcare data</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <h3>Backend Developer Intern</h3>
+          <div class="org">Euler Data Solutions, Bordeaux, France</div>
+          <p>Built a Spring Boot microservice for one of Euler's investigative products, turning unstructured case documents, police reports, bank statements, and whatever else was feeding an active investigation, into structured case data: people and their roles, locations, and a dated incident timeline flagged by significance. Documents run entirely through a locally-hosted Mistral 7B model rather than a cloud API, so sensitive case material never leaves the client's environment. Long reports are chunked to fit the model's context window, processed independently, then deduplicated and merged back into one clean case record, with malformed model output caught and skipped per chunk rather than failing the whole document.</p>
+          <a class="repo-link" href="https://github.com/laxoune/TextOps" target="_blank" rel="noopener">github.com/laxoune/TextOps &#8594;</a>
+        </div>
+        <div class="meta">
+          <span class="tag">Java / Spring Boot</span>
+          <span class="tag">Local LLM (Mistral 7B)</span>
+          <span class="tag">PDFBox / Tika</span>
+          <span class="tag">REST + OpenAPI</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <h3>Business Analyst Intern</h3>
+          <div class="org">Cafezal, Milan, Italy</div>
+          <p>Built branch-level sales forecasting models for Cafezal's four Milan locations, using Random Forest regressors trained on two years of hourly POS data plus engineered time features (7-day rolling mean/std, lagged sales, weekday and hour encoding) and local weather data. Produced April demand forecasts per branch to support staffing and production planning, alongside an hourly peak-classification model flagging predictable rush periods.</p>
+          <a class="repo-link" href="https://github.com/laxoune/cafezal_machine_learning_project" target="_blank" rel="noopener">github.com/laxoune/cafezal_machine_learning_project &#8594;</a>
+
+          <div class="result-strip">
+            <div>Branches modeled<span>4 (Milan)</span></div>
+            <div>Data span<span>2023 – 2025, hourly</span></div>
+            <div>Best test R&sup2;<span>0.86 (Premuda)</span></div>
+            <div>Weakest test R&sup2;<span>0.48 (Corso Magenta)</span></div>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <img src="img/cafezal_traintest.png" alt="Line chart comparing actual vs Random Forest predicted daily sales for the Premuda branch, 2023 to 2025">
+              <figcaption>Actual vs. predicted daily sales, Premuda branch — the model's best-performing location.</figcaption>
+            </figure>
+            <figure>
+              <img src="img/cafezal_april_forecast.png" alt="Line chart of predicted daily sales for April 2025 at the Premuda branch, showing a clear weekly pattern">
+              <figcaption>April 2025 demand forecast, used for staffing and production planning.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="meta">
+          <span class="tag">Python</span>
+          <span class="tag">Random Forest / XGBoost / LightGBM</span>
+          <span class="tag">Time-series feature engineering</span>
+          <span class="tag">POS data</span>
         </div>
       </div>
 
@@ -424,13 +478,32 @@
 
       <div class="entry">
         <div>
-          <h3>Feedback Data Analysis</h3>
-          <div class="org">Northfield Public Schools</div>
-          <p>Processed and analyzed employee and parent feedback survey data for the district, turning open-ended and structured responses into findings leadership could act on.</p>
+          <h3>Survey Data Analysis Toolkit</h3>
+          <div class="org">St. Olaf College, IFC — client: Northfield Public Schools</div>
+          <p>Built a reusable, configuration-driven survey analysis pipeline for the district's annual parent and employee feedback surveys, replacing a manual, error-prone process with a repeatable one. The trickiest engineering problem: the parent survey lets one respondent report on up to three different schools in a single submission, so the pipeline unpivots that structure into one clean row per school-response before any analysis runs. For every survey question, it computes mean score and Top-Box agreement percentages at both the district and individual-building level, plus wide pivot tables formatted for direct copy-paste into board presentations.</p>
+          <p>Applied to the district's most recent parent survey, several hundred respondents across all seven school sites, district-wide sentiment has trended upward over the past few survey cycles, with the most recent administration showing the largest year-over-year improvement in the series. Built to be reused on future parent, employee, and student surveys with only a configuration block changing, not the underlying logic.</p>
         </div>
         <div class="meta">
-          <span class="tag">Survey data</span>
-          <span class="tag">Analysis</span>
+          <span class="tag">Python / pandas</span>
+          <span class="tag">Google Colab</span>
+          <span class="tag">Survey analytics</span>
+          <span class="tag">Excel export</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <h3>Economics Research Fellow</h3>
+          <div class="org">St. Olaf College — Faculty Supervisor: Kulsoom Hisam</div>
+          <p>Ongoing study asking a single empirical question: did early-20th-century crop yield differences on Canadian Indigenous reserves come from treaty-specific agricultural provisions (implements, cattle, and seed grain promised under the Numbered Treaties), or simply from climate and geography? The design compares communities right at treaty boundaries, similar soil and climate, different treaty provisions, to isolate the treaty effect via spatial regression discontinuity.</p>
+          <p>Responsible for the Alberta regional dataset (1905&ndash;1929, sourced from digitized Department of Indian Affairs Annual Reports): parsing scanned PDF tables into structured data, merging in Stata, and resolving conflicts against source documents. Along the way, surfaced real data-quality problems that shaped the team's cleaning pipeline &mdash; a 72.6% missing-data gap for 1913&ndash;1922, OCR-driven implausible yield values, and column-naming drift ("Acreage" vs. "Area") breaking naive merges across sheets.</p>
+          <a class="repo-link" href="files/Treatymaking-and-Indigenous-Agriculture-Presentation.pdf" target="_blank" rel="noopener">View research presentation (PDF) &#8594;</a>
+        </div>
+        <div class="meta">
+          <span class="tag">Stata</span>
+          <span class="tag">Spatial RDD</span>
+          <span class="tag">PDF data extraction</span>
+          <span class="tag">Historical panel data</span>
         </div>
       </div>
     </section>
@@ -479,6 +552,34 @@
             <figcaption>Real historical return correlation matrix feeding the portfolio optimizer's risk term.</figcaption>
           </figure>
         </div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div>
+            <h3>Cross-Venue Prediction Market Arbitrage Bot</h3>
+            <div class="org">Personal project</div>
+            <p>A live arbitrage system trading the spread between Polymarket and Kalshi prediction markets. Originally built around LLM-based semantic matching, a fast detection loop scans new markets on each venue, pre-filters by word overlap, then sends real candidates to an LLM to identify equivalent events phrased differently across platforms. In practice, real execution conditions pushed the working strategy toward direct spread trading on near-identical tickers across both venues instead, since that traded faster and more reliably than waiting on cross-market semantic matches.</p>
+            <p>Built full production infrastructure around it: exact per-venue fee modeling, a risk engine enforcing daily loss limits, position caps, a kill switch, and stale-orderbook checks before any order is placed, plus a Telegram bot for live alerts and remote control (<code>/start</code>, <code>/stop</code>, <code>/kill</code>, <code>/status</code>).</p>
+            <a class="repo-link" href="https://github.com/laxoune/arb" target="_blank" rel="noopener">github.com/laxoune/arb &#8594;</a>
+          </div>
+          <div class="meta">
+            <span class="tag">Python</span>
+            <span class="tag">LLM market matching</span>
+            <span class="tag">Kalshi &amp; Polymarket APIs</span>
+            <span class="tag">Telegram bot</span>
+            <span class="tag">Risk management</span>
+          </div>
+        </div>
+
+        <div class="result-strip">
+          <div>Ran live<span>Real capital, both venues</span></div>
+          <div>Starting balance<span>$100 ($50/venue)</span></div>
+          <div>Result<span>~2x over live trading</span></div>
+          <div>Safety layer<span>Kill switch + manual override</span></div>
+        </div>
+
+        <p style="color:var(--ink-soft); font-size:15px; max-width:60ch; margin-top:20px;">Traded 15-minute crypto price-threshold windows (e.g. ETH), where the structural flaw eventually surfaced: settlement on the two venues could land after the window closed at slightly different reference points, so occasionally <em>both</em> legs, Kalshi and Polymarket, resolved as a loss simultaneously, a correlated tail event a hedge is supposed to prevent. It was rare, but a single double-loss could erase the gains from many prior profitable trades. Added early-exit logic, closing a position as soon as the live price pair showed a profit instead of holding to settlement, which meaningfully reduced the risk but couldn't eliminate it; the timing was unpredictable by construction. Rather than let one bad settlement wipe out the account, made the call to stop the bot and lock in gains while still ahead.</p>
       </div>
     </section>
 
@@ -532,6 +633,7 @@
       <p class="label">contact</p>
       <h2>Open to conversations about data, finance, or something in between.</h2>
       <div class="contact-links">
+        <a href="files/Alexander-Dagher-Resume.pdf" target="_blank" rel="noopener">View résumé (PDF)</a>
         <a href="files/Alexander-Dagher-Resume.pdf" download>Download résumé (PDF)</a>
         <a href="mailto:your-email@example.com">your-email@example.com</a>
         <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">linkedin.com/in/your-profile</a>
