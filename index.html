@@ -14,7 +14,7 @@
     --paper:     #EFEEE6;
     --paper-2:   #E6E3D6;
     --line:      #CFC9B6;
-    --gold:      #93672A;
+    --gold:      #1F4E79;
     --pine:      #3C6653;
     --white:     #FAFAF6;
   }
@@ -34,16 +34,23 @@
     font-size:17px;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
   a{ color:inherit; }
+  img{ max-width:100%; height:auto; }
 
   .wrap{
     max-width:1120px;
     margin:0 auto;
     display:grid;
-    grid-template-columns:64px 1fr;
+    grid-template-columns:76px 1fr;
     gap:0 32px;
+  }
+
+  @media (max-width:960px){
+    .wrap{ grid-template-columns:60px 1fr; gap:0 20px; }
+    .rail-index{ gap:12px; font-size:12px; }
   }
 
   /* ---- left rail ---- */
@@ -66,15 +73,17 @@
   .rail-index{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:16px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
+    font-size:13px;
   }
   .rail-index a{
     text-decoration:none;
-    color:var(--line);
-    border-left:2px solid var(--line);
-    padding-left:8px;
+    color:var(--ink-soft);
+    font-weight:600;
+    letter-spacing:0.03em;
+    border-left:3px solid var(--line);
+    padding-left:9px;
     writing-mode:vertical-rl;
     transition:color 0.2s ease, border-color 0.2s ease;
   }
@@ -98,7 +107,7 @@
 
   .label{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
+    font-size:15px;
     color:var(--gold);
     margin:0 0 20px;
   }
@@ -189,8 +198,10 @@
 
   /* ---- projects ---- */
   .project{
-    padding:0;
+    padding:32px 0;
+    border-top:1px solid var(--line);
   }
+  .project:first-of-type{ border-top:none; padding-top:0; }
   .project-head{
     display:grid;
     grid-template-columns:1fr 200px;
@@ -274,6 +285,21 @@
   @media (max-width:640px){
     .project-head{ grid-template-columns:1fr; }
     .gallery{ grid-template-columns:1fr; }
+  }
+
+  .pdf-viewer{
+    width:100%;
+    height:600px;
+    border:1px solid var(--line);
+    margin-top:16px;
+    background:var(--white);
+  }
+  .pdf-viewer.small{ height:480px; }
+  .pdf-caption{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:8px;
   }
 
   /* ---- education / study ---- */
@@ -379,7 +405,7 @@
       <p class="role">Quantitative Economics and Computer Science, built toward a career in investment analysis — a data-driven foundation grounded in independent quantitative research.</p>
       <div class="stamp">
         <div>Based<span>Minneapolis, MN</span></div>
-        <div>Currently<span>St. Olaf College — Class of 2026</span></div>
+        <div>Education<span>St. Olaf College, Class of 2026</span></div>
         <div>Focus<span>investment analysis · quantitative research</span></div>
       </div>
     </section>
@@ -387,7 +413,7 @@
     <section id="about">
       <p class="label">about</p>
       <div class="about">
-        <p>My path is aimed at investment analysis. I study <strong>Quantitative Economics and Computer Science</strong> at St. Olaf because the two together let me actually build and stress-test the models an investment thesis rests on, not just cite someone else's output.</p>
+        <p>My path is aimed at investment analysis. I studied <strong>Quantitative Economics and Computer Science</strong> at St. Olaf because the two together let me actually build and stress-test the models an investment thesis rests on, not just cite someone else's output.</p>
         <p>Along the way that's meant cleaning healthcare data at scale, building dashboards executives actually use, and running independent quantitative research pairing classical forecasting with quantum computing techniques, portfolio optimization included. Each one is the same motion investment analysis runs on: take a messy real-world question and get to a decision-ready answer.</p>
       </div>
     </section>
@@ -411,6 +437,7 @@
           <span class="tag">Airflow</span>
           <span class="tag">Snowflake / Iceberg</span>
           <span class="tag">Power BI</span>
+          <span class="tag">May 2026 &ndash; Aug 2026</span>
         </div>
       </div>
 
@@ -427,6 +454,7 @@
           <span class="tag">PDFBox / Tika</span>
           <span class="tag">REST + OpenAPI</span>
           <span class="tag">PostgreSQL</span>
+          <span class="tag">Jun 2025 &ndash; Aug 2025</span>
         </div>
       </div>
 
@@ -460,6 +488,7 @@
           <span class="tag">Random Forest / XGBoost / LightGBM</span>
           <span class="tag">Time-series feature engineering</span>
           <span class="tag">POS data</span>
+          <span class="tag">Feb 2025 &ndash; May 2025</span>
         </div>
       </div>
 
@@ -482,12 +511,27 @@
           <div class="org">St. Olaf College, IFC — client: Northfield Public Schools</div>
           <p>Built a reusable, configuration-driven survey analysis pipeline for the district's annual parent and employee feedback surveys, replacing a manual, error-prone process with a repeatable one. The trickiest engineering problem: the parent survey lets one respondent report on up to three different schools in a single submission, so the pipeline unpivots that structure into one clean row per school-response before any analysis runs. For every survey question, it computes mean score and Top-Box agreement percentages at both the district and individual-building level, plus wide pivot tables formatted for direct copy-paste into board presentations.</p>
           <p>Applied to the district's most recent parent survey, several hundred respondents across all seven school sites, district-wide sentiment has trended upward over the past few survey cycles, with the most recent administration showing the largest year-over-year improvement in the series. Built to be reused on future parent, employee, and student surveys with only a configuration block changing, not the underlying logic.</p>
+
+          <div class="result-strip">
+            <div>2026 respondents<span>702, 7 school sites</span></div>
+            <div>Overall mean, 2023 &rarr; 2026<span>4.00 &rarr; 4.18</span></div>
+            <div>Top-box % (Strongly Agree)<span>37.8% &rarr; 51.2%</span></div>
+            <div>Largest YoY jump<span>2025 &rarr; 2026</span></div>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <img src="img/northfield_trend.png" alt="Line chart of Northfield parent survey district-level overall mean and top-box percentage from Spring 2023 to Spring 2026">
+              <figcaption>District-level trend across four survey administrations.</figcaption>
+            </figure>
+          </div>
         </div>
         <div class="meta">
           <span class="tag">Python / pandas</span>
           <span class="tag">Google Colab</span>
           <span class="tag">Survey analytics</span>
           <span class="tag">Excel export</span>
+          <span class="tag">Sep 2025 &ndash; May 2026</span>
         </div>
       </div>
 
@@ -497,13 +541,15 @@
           <div class="org">St. Olaf College — Faculty Supervisor: Kulsoom Hisam</div>
           <p>Ongoing study asking a single empirical question: did early-20th-century crop yield differences on Canadian Indigenous reserves come from treaty-specific agricultural provisions (implements, cattle, and seed grain promised under the Numbered Treaties), or simply from climate and geography? The design compares communities right at treaty boundaries, similar soil and climate, different treaty provisions, to isolate the treaty effect via spatial regression discontinuity.</p>
           <p>Responsible for the Alberta regional dataset (1905&ndash;1929, sourced from digitized Department of Indian Affairs Annual Reports): parsing scanned PDF tables into structured data, merging in Stata, and resolving conflicts against source documents. Along the way, surfaced real data-quality problems that shaped the team's cleaning pipeline &mdash; a 72.6% missing-data gap for 1913&ndash;1922, OCR-driven implausible yield values, and column-naming drift ("Acreage" vs. "Area") breaking naive merges across sheets.</p>
-          <a class="repo-link" href="files/Treatymaking-and-Indigenous-Agriculture-Presentation.pdf" target="_blank" rel="noopener">View research presentation (PDF) &#8594;</a>
+          <iframe class="pdf-viewer" src="files/Treatymaking-and-Indigenous-Agriculture-Presentation.pdf#toolbar=0" title="Treatymaking and Indigenous Agriculture research presentation"></iframe>
+          <p class="pdf-caption">Research presentation — view only</p>
         </div>
         <div class="meta">
           <span class="tag">Stata</span>
           <span class="tag">Spatial RDD</span>
           <span class="tag">PDF data extraction</span>
           <span class="tag">Historical panel data</span>
+          <span class="tag">Sep 2025 &ndash; May 2026</span>
         </div>
       </div>
     </section>
@@ -615,19 +661,35 @@
       <div class="skill-rows">
         <div class="skill-row">
           <div class="cat">Languages</div>
-          <div class="items">Python, SQL</div>
+          <div class="items">Python, R, Stata, SQL, Java, C++, TypeScript, JavaScript, HTML</div>
         </div>
         <div class="skill-row">
-          <div class="cat">Data &amp; BI</div>
-          <div class="items">PySpark, Power BI, data cleaning &amp; pipeline work at scale</div>
+          <div class="cat">Data &amp; ML</div>
+          <div class="items">Numpy, Pandas, Scikit-learn, XGBoost, TensorFlow, Keras, Matplotlib, Seaborn, Statsmodels, Scipy, Hugging Face</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Data Engineering &amp; Cloud</div>
+          <div class="items">PySpark, Apache Spark, AWS (S3, EMR, IAM, Glue), Apache Airflow, Apache Kafka, Apache Iceberg, Snowflake, Docker, ETL/data pipelines, data modeling</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Frameworks &amp; Tools</div>
+          <div class="items">Spring Boot, Vue3, REST APIs, Pinecone, CI/CD, GitLab, ADO, Power BI</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Quantum &amp; AI</div>
+          <div class="items">Qiskit, agentic AI, prompting, AI workflow optimization</div>
         </div>
         <div class="skill-row">
           <div class="cat">Analysis</div>
           <div class="items">Econometrics, statistical analysis, business/operations diagnostics</div>
         </div>
         <div class="skill-row">
+          <div class="cat">Environment &amp; Productivity</div>
+          <div class="items">Ubuntu, Linux, Jupyter Notebook, Excel, Google Suite, Office 365</div>
+        </div>
+        <div class="skill-row">
           <div class="cat">Other</div>
-          <div class="items">Quantum computing fundamentals, client-facing consulting</div>
+          <div class="items">Client-facing consulting</div>
         </div>
       </div>
     </section>
@@ -636,13 +698,13 @@
       <p class="label">contact</p>
       <h2>Open to conversations about data, finance, or something in between.</h2>
       <div class="contact-links">
-        <a href="files/Alexander-Dagher-Resume.pdf" target="_blank" rel="noopener">View résumé (PDF)</a>
         <a href="files/Alexander-Dagher-Resume.pdf" download>Download résumé (PDF)</a>
         <a href="mailto:dagheralexander@gmail.com">dagheralexander@gmail.com</a>
         <a href="tel:+17633185303">(763) 318-5303</a>
         <a href="https://linkedin.com/in/alexander-dagher" target="_blank" rel="noopener">linkedin.com/in/alexander-dagher</a>
         <a href="https://github.com/laxoune" target="_blank" rel="noopener">github.com/laxoune</a>
       </div>
+      <iframe class="pdf-viewer small" src="files/Alexander-Dagher-Resume.pdf" title="Alexander Dagher résumé"></iframe>
     </section>
 
     <footer>
