@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Dagher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:       #182338;
+    --ink-soft:  #4A5468;
+    --paper:     #EFEEE6;
+    --paper-2:   #E6E3D6;
+    --line:      #CFC9B6;
+    --gold:      #93672A;
+    --pine:      #3C6653;
+    --white:     #FAFAF6;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:0 32px;
+  }
+
+  /* ---- left rail ---- */
+  .rail{
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:40px 0;
+  }
+  .rail-mark{
+    writing-mode:vertical-rl;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+  }
+  .rail-index{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+  .rail-index a{
+    text-decoration:none;
+    color:var(--line);
+    border-left:2px solid var(--line);
+    padding-left:8px;
+    writing-mode:vertical-rl;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .rail-index a:hover, .rail-index a.active{
+    color:var(--gold);
+    border-color:var(--gold);
+  }
+
+  @media (max-width:860px){
+    .wrap{ grid-template-columns:1fr; }
+    .rail{ display:none; }
+  }
+
+  main{ padding:0 24px; }
+
+  section{
+    padding:96px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--gold);
+    margin:0 0 20px;
+  }
+
+  h1,h2,h3{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    margin:0;
+    color:var(--ink);
+  }
+
+  /* ---- hero ---- */
+  .hero{ padding-top:64px; }
+  .hero h1{
+    font-size:clamp(40px, 6vw, 68px);
+    line-height:1.05;
+    max-width:14ch;
+    opacity:0;
+    transform:translateY(14px);
+    animation:rise 0.7s ease-out 0.15s forwards;
+  }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+  .hero .role{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-size:20px;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin-top:18px;
+  }
+
+  .stamp{
+    margin-top:40px;
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .stamp div span{ display:block; color:var(--ink); font-size:14px; margin-top:3px; }
+
+  /* ---- about ---- */
+  .about p{
+    max-width:62ch;
+    font-size:18px;
+    color:var(--ink-soft);
+  }
+  .about p + p{ margin-top:18px; }
+  .about strong{ color:var(--ink); font-weight:600; }
+
+  /* ---- entries (experience) ---- */
+  .entry{
+    display:grid;
+    grid-template-columns:1fr 200px;
+    gap:32px;
+    padding:32px 0;
+    border-top:1px solid var(--line);
+  }
+  .entry:first-of-type{ border-top:none; padding-top:0; }
+  .entry h3{ font-size:23px; }
+  .entry .org{
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    color:var(--pine);
+    margin-top:4px;
+    font-size:15px;
+  }
+  .entry p{
+    color:var(--ink-soft);
+    margin-top:14px;
+    max-width:56ch;
+    font-size:16px;
+  }
+  .entry .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    line-height:1.9;
+  }
+  .entry .meta .tag{
+    display:block;
+  }
+  @media (max-width:640px){
+    .entry{ grid-template-columns:1fr; }
+  }
+
+  /* ---- projects ---- */
+  .project{
+    padding:0;
+  }
+  .project-head{
+    display:grid;
+    grid-template-columns:1fr 200px;
+    gap:32px;
+    align-items:start;
+  }
+  .project-head h3{ font-size:23px; }
+  .project-head .org{
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    color:var(--pine);
+    margin-top:4px;
+    font-size:15px;
+  }
+  .project-head p{
+    color:var(--ink-soft);
+    margin-top:14px;
+    max-width:60ch;
+    font-size:16px;
+  }
+  .project-head .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    line-height:1.9;
+  }
+  .project-head .meta .tag{ display:block; }
+  .project-head .repo-link{
+    display:inline-block;
+    margin-top:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--ink);
+    border-bottom:1px solid var(--gold);
+    padding-bottom:2px;
+  }
+  .project-head .repo-link:hover{ color:var(--gold); }
+
+  .result-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    margin-top:28px;
+    padding:18px 20px;
+    background:var(--paper-2);
+    border-left:2px solid var(--gold);
+  }
+  .result-strip div{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+  .result-strip div span{
+    display:block;
+    font-family:'Source Serif 4', serif;
+    font-size:19px;
+    color:var(--ink);
+    margin-top:2px;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:36px;
+  }
+  .gallery figure{ margin:0; }
+  .gallery img{
+    width:100%;
+    display:block;
+    border:1px solid var(--line);
+    background:var(--white);
+  }
+  .gallery figcaption{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+  @media (max-width:640px){
+    .project-head{ grid-template-columns:1fr; }
+    .gallery{ grid-template-columns:1fr; }
+  }
+
+  /* ---- education / study ---- */
+  .study-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    margin-top:8px;
+  }
+  @media (max-width:640px){ .study-grid{ grid-template-columns:1fr; } }
+  .study-grid h3{ font-size:20px; }
+  .study-grid .org{ color:var(--pine); font-weight:500; font-size:15px; margin-top:4px; }
+  .course-list{
+    list-style:none;
+    padding:0;
+    margin:16px 0 0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .course-list li{ border-left:2px solid var(--line); padding-left:10px; }
+  .course-list li.starred{ border-color:var(--gold); color:var(--ink); }
+
+  /* ---- skills ---- */
+  .skill-rows{ margin-top:8px; }
+  .skill-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:24px;
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .skill-row:first-child{ border-top:none; }
+  .skill-row .cat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--gold);
+    padding-top:2px;
+  }
+  .skill-row .items{
+    color:var(--ink-soft);
+    font-size:16px;
+  }
+  @media (max-width:640px){
+    .skill-row{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  /* ---- contact ---- */
+  .contact h2{ font-size:clamp(32px,5vw,48px); max-width:16ch; }
+  .contact-links{
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+  }
+  .contact-links a{
+    text-decoration:none;
+    color:var(--ink);
+    width:fit-content;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .contact-links a:hover{ color:var(--gold); border-color:var(--gold); }
+
+  footer{
+    padding:32px 24px 48px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  ::selection{ background:var(--gold); color:var(--white); }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="rail">
+    <div class="rail-mark">ALEX DAGHER — WORKING NOTES</div>
+    <nav class="rail-index">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#study">study</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+
+  <main>
+
+    <section class="hero">
+      <h1>Alex Dagher</h1>
+      <p class="role">Quantitative economics and computer science, applied to messy real-world data and the businesses that run on it.</p>
+      <div class="stamp">
+        <div>Based<span>Minneapolis, MN</span></div>
+        <div>Currently<span>St. Olaf College — Class of 2026</span></div>
+        <div>Focus<span>data engineering · financial analysis</span></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <p class="label">about</p>
+      <div class="about">
+        <p>I came into college wanting to build software, and left more interested in what the data underneath a business actually says. My double major in <strong>Quantitative Economics and Computer Science</strong> at St. Olaf sits right at that intersection — enough engineering to build the pipeline, enough economics to know what question it should answer.</p>
+        <p>In practice that's meant cleaning healthcare data at scale, building dashboards non-technical stakeholders actually use, and sitting across the table from a small business owner to figure out which lever in their operation is worth pulling first. I like the parts of both worlds that don't get taught in a single course.</p>
+      </div>
+    </section>
+
+    <section id="experience">
+      <p class="label">experience</p>
+
+      <div class="entry">
+        <div>
+          <h3>Data Engineering Associate</h3>
+          <div class="org">Reviture</div>
+          <p>Used PySpark and SQL to clean and standardize healthcare patient intake data at scale, then built Power BI dashboards for a client stakeholder presentation.</p>
+        </div>
+        <div class="meta">
+          <span class="tag">PySpark</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Healthcare data</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <h3>Independent Business Consulting</h3>
+          <div class="org">Small business clients, Minnesota</div>
+          <p>Run discovery and data analysis engagements for local small businesses — mapping the full operation, then identifying the highest-leverage place to focus, from production costs to marketing spend to sourcing.</p>
+        </div>
+        <div class="meta">
+          <span class="tag">Discovery</span>
+          <span class="tag">Ops analysis</span>
+          <span class="tag">Client strategy</span>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div>
+          <h3>Feedback Data Analysis</h3>
+          <div class="org">Northfield Public Schools</div>
+          <p>Processed and analyzed employee and parent feedback survey data for the district, turning open-ended and structured responses into findings leadership could act on.</p>
+        </div>
+        <div class="meta">
+          <span class="tag">Survey data</span>
+          <span class="tag">Analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <p class="label">projects</p>
+
+      <div class="project">
+        <div class="project-head">
+          <div>
+            <h3>Hybrid Quantum-Classical Finance Pipeline</h3>
+            <div class="org">Independent research, under Prof. Michael Haydock (IBM Fellow Emeritus)</div>
+            <p>A two-stage pipeline spanning both halves of quantum finance. A trainable Qiskit variational quantum circuit (VQC) corrects an LSTM's forecasting error on real market data for five assets; a QAOA-based optimizer then solves a Markowitz QUBO to decide which of those assets to actually hold — with the forecasts feeding the allocation decision directly, not sitting next to it.</p>
+            <a class="repo-link" href="https://github.com/laxoune/Quantum-trading" target="_blank" rel="noopener">github.com/laxoune/Quantum-trading &#8594;</a>
+          </div>
+          <div class="meta">
+            <span class="tag">Qiskit</span>
+            <span class="tag">QAOA</span>
+            <span class="tag">LSTM / TensorFlow</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+
+        <div class="result-strip">
+          <div>Forecast error reduction<span>4 of 5 assets</span></div>
+          <div>Best single-asset improvement<span>−82% MSE</span></div>
+          <div>QAOA vs exact optimum<span>matched, 5/5 runs</span></div>
+          <div>Portfolio selected<span>Tech · Energy · Healthcare</span></div>
+        </div>
+
+        <div class="gallery">
+          <figure>
+            <img src="img/portfolio_selection.png" alt="Bar chart of real forecasted returns per asset, with the three assets QAOA selected highlighted">
+            <figcaption>QAOA selected every asset with a positive real forecast and excluded both with a negative one.</figcaption>
+          </figure>
+          <figure>
+            <img src="img/mse_comparison_by_asset.png" alt="Bar chart comparing LSTM-only forecast error to quantum-corrected forecast error across five assets">
+            <figcaption>Quantum correction reduced forecast error on 4 of 5 assets — reported honestly, including the one it didn't help.</figcaption>
+          </figure>
+          <figure>
+            <img src="img/forecast_comparison_all_assets.png" alt="Line charts of real price versus LSTM prediction versus quantum-corrected prediction for all five assets">
+            <figcaption>Real price vs. LSTM prediction vs. quantum-corrected prediction, held-out test days, all five assets.</figcaption>
+          </figure>
+          <figure>
+            <img src="img/correlation_heatmap.png" alt="Heatmap of real historical return correlations across the five assets">
+            <figcaption>Real historical return correlation matrix feeding the portfolio optimizer's risk term.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="study">
+      <p class="label">study</p>
+      <div class="study-grid">
+        <div>
+          <h3>Quantitative Economics</h3>
+          <div class="org">St. Olaf College</div>
+          <ul class="course-list">
+            <li>Introductory Econometrics</li>
+            <li>Statistics I</li>
+            <li>Elementary Linear Algebra</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Computer Science</h3>
+          <div class="org">St. Olaf College</div>
+          <ul class="course-list">
+            <li class="starred">Independent Study — Quantum Computing</li>
+            <li>Discrete Mathematical Reasoning</li>
+            <li>Calculus-based Physics I &amp; II</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <p class="label">skills</p>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="cat">Languages</div>
+          <div class="items">Python, SQL</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Data &amp; BI</div>
+          <div class="items">PySpark, Power BI, data cleaning &amp; pipeline work at scale</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Analysis</div>
+          <div class="items">Econometrics, statistical analysis, business/operations diagnostics</div>
+        </div>
+        <div class="skill-row">
+          <div class="cat">Other</div>
+          <div class="items">Quantum computing fundamentals, client-facing consulting</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <p class="label">contact</p>
+      <h2>Open to conversations about data, finance, or something in between.</h2>
+      <div class="contact-links">
+        <a href="mailto:your-email@example.com">your-email@example.com</a>
+        <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">linkedin.com/in/your-profile</a>
+        <a href="https://github.com/your-handle" target="_blank" rel="noopener">github.com/your-handle</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Alex Dagher</span>
+      <span>Minneapolis, MN</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // highlight active rail link on scroll
+  const links = document.querySelectorAll('.rail-index a');
+  const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  const setActive = () => {
+    let current = sections[0];
+    for (const s of sections){
+      if (s && s.getBoundingClientRect().top < window.innerHeight * 0.4) current = s;
+    }
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+  };
+  document.addEventListener('scroll', setActive, { passive:true });
+  setActive();
+</script>
+
+</body>
+</html>
